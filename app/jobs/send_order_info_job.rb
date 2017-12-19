@@ -4,10 +4,12 @@ class SendOrderInfoJob < ApplicationJob
   def perform
     logger.info('SendOrderInfoJob started.')
     records = []
-    Order.during_yesterday.joins(:order_details).includes(:order_details).each do |order|
+    Order.during_yesterday.each do |order|
+      next if order.details.present?
       order_id = format_order_id(order.order_id)
       email = order.email
-      name = "#{order.s_firstname}#{order.s_lastname}"
+      to_name = "#{order.s_firstname}#{order.s_lastname}"
+      from_name = "#{order.b_firstname}#{order.b_lastname}"
       country = order.s_country
       zipcode = order.s_zipcode
       state = order.states.find_by(country_code: 'JP').state_descriptions.find_by(lang_code: 'ja').state
@@ -24,7 +26,7 @@ class SendOrderInfoJob < ApplicationJob
         note = o.order.wayo_orders_extensions.find_by(cscart_wayo_orders_extension: {product_id: o.product_id})&.wrapping_name
         records.push({ order_id: order_id,
                        user_email: email,
-                       shipping_name: name,
+                       shipping_name: to_name,
                        shipping_country: country,
                        shipping_zip: zipcode,
                        shipping_state: state,
@@ -38,7 +40,8 @@ class SendOrderInfoJob < ApplicationJob
                        qty: o.amount,
                        ordered_at: Time.at(timestamp).strftime('%Y/%m/%d'),
                        note: note,
-                       gift_wrapping: note.present? ? 1 : 0
+                       gift_wrapping: note.present? ? 1 : 0,
+                       from_name: to_name == from_name ? '' : from_name
                        })
       end
     end

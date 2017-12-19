@@ -23,7 +23,8 @@ module Utils
           [:qty, "qty"],
           [:ordered_at, "ordered_at(UTC)"],
           [:note, "note"],
-          [:gift_wrapping, "gift_wrapping"]
+          [:gift_wrapping, "gift_wrapping"],
+          [:from_name, "from_name"]
         ]
         define_field_attr_accessor
     
@@ -48,6 +49,7 @@ module Utils
          @ordered_at = ''
          @note = ''
          @gift_wrapping = ''
+         @from_name = ''
        end
       end
     
@@ -73,6 +75,7 @@ module Utils
             record.ordered_at = list[:ordered_at]
             record.note = list[:note]
             record.gift_wrapping = list[:gift_wrapping]
+            record.from_name = list[:from_name]
             @records << record.to_csv
           end
           @records.join("\r\n")
