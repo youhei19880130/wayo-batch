@@ -9,6 +9,12 @@
   </head>
 
   <body>
+    <% if flash.present? %>
+      <% flash.each do |key, value| %>
+        <%= content_tag(:div, value, class: "row alert alert-#{key}") %>
+      <% end %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

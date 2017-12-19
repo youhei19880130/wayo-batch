@@ -1,0 +1,7 @@
+<h1>Top#index</h1>
+<p>Find me in app/views/top/index.html.erb</p>
+
+<%= form_tag(update_stock_path, method: "post", multipart: true) do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "在庫更新" %>
+<% end %>
