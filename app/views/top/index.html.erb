@@ -3,5 +3,10 @@
 
 <%= form_tag(update_stock_path, method: "post", multipart: true) do %>
   <%= file_field_tag :file %>
-  <%= submit_tag "在庫更新" %>
+  <%= submit_tag "在庫情報更新" %>
+<% end %>
+
+<%= form_tag(update_tracking_path, method: "post", multipart: true) do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "トラッキング情報更新" %>
 <% end %>

@@ -3,4 +3,5 @@ Rails.application.routes.draw do
  root 'top#index' 
 
  post 'update_stock' => 'top#update_stock'
+ post 'update_tracking' => 'top#update_tracking'
 end

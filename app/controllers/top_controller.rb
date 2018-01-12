@@ -6,4 +6,9 @@ class TopController < ApplicationController
     UpdateStockJob.perform_now(params[:file])
     redirect_to root_path, notice: '処理が終了しました'
   end
+
+  def update_stock
+    UpdateTrackingJob.perform_now(params[:file])
+    redirect_to root_path, notice: '処理が終了しました'
+  end
 end
