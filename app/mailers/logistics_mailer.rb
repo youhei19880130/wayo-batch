@@ -9,7 +9,8 @@ class LogisticsMailer < ApplicationMailer
   def order_info_mail(attachment_file)
     attachments["order_info_#{Time.now.yesterday.strftime('%Y%m%d')}.csv"] = attachment_file
     mail(subject: "注文情報のお知らせ_#{Time.now.yesterday.strftime('%Y%m%d')}",
-         to: Settings.tom.email,
-         cc: Settings.wayo.email)
+         to: 'someya@livearts-inc.com')
+         # to: Settings.tom.email,
+         # cc: Settings.wayo.email)
   end
 end

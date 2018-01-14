@@ -49,6 +49,3 @@ test:
 #
 production:
   <<: *default
-  database: wayo-batch_production
-  username: wayo-batch
-  password: <%= ENV['WAYO-BATCH_DATABASE_PASSWORD'] %>
